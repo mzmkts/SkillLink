@@ -8,7 +8,10 @@ import lombok.Setter;
 
 import java.util.List;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
     private String userIdDto;
     private String firstNameDto;
