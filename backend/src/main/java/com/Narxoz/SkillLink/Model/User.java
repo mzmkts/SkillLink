@@ -26,8 +26,11 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
 
-    private String email;
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
@@ -35,9 +38,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
-
-
 
 
     @Override
