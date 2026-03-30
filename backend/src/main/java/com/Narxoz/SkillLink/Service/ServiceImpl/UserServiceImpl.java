@@ -59,9 +59,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
     }
 
-    @Override
-    public void updateUser(Long id, User user) {
-
+    public void updateUser(Long id, UserDto userDto) {
+        User existingUser = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        existingUser.setFirstName(userDto.getFirstNameDto());
+        existingUser.setLastName(userDto.getLastNameDto());
+        existingUser.setEmail(userDto.getEmailDto());
+        existingUser.setPassword(passwordEncoder.encode(userDto.getPasswordDto()));
+        existingUser.setRoles(userDto.getRoles());
+        userRepo.save(existingUser);
     }
 
     @Override

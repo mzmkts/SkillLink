@@ -1,6 +1,7 @@
 package com.Narxoz.SkillLink.Controller;
 
 import com.Narxoz.SkillLink.Dto.UserDto;
+import com.Narxoz.SkillLink.Model.User;
 import com.Narxoz.SkillLink.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,11 @@ public class UserApi {
         userService.register(userDto);
         return new  ResponseEntity<>(HttpStatus.OK);
     }
-//    @PutMapping
+    @PutMapping("/user/{id}")
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody UserDto userDto){
+        userService.updateUser(id, userDto);
+        return new  ResponseEntity<>(HttpStatus.OK);
+    }
 
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
