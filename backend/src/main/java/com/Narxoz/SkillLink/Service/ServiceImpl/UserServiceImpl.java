@@ -54,6 +54,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setLastName(userDto.getLastNameDto());
             user.setEmail(userDto.getEmailDto());
             user.setPassword(encodedPassword);
+            user.setSchool(userDto.getSchool());
+            user.setSkills(userDto.getSkills());
             user.setRoles(roles);
             userRepo.save(user);
         }
@@ -66,6 +68,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         existingUser.setEmail(userDto.getEmailDto());
         existingUser.setPassword(passwordEncoder.encode(userDto.getPasswordDto()));
         existingUser.setRoles(userDto.getRoles());
+        existingUser.setSchool(userDto.getSchool());
+        existingUser.setSkills(userDto.getSkills());
         userRepo.save(existingUser);
     }
 
