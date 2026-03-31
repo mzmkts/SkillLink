@@ -31,13 +31,18 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
+    private String school;
+
+    @Column(nullable = false)
+    private List<String> skills;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
 
     @Override
     public String getUsername() {

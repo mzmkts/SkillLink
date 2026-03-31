@@ -18,5 +18,7 @@ public class UserDto {
     private String lastNameDto;
     private String passwordDto;
     private String emailDto;
+    private String school;
+    private List<String> skills;
     private List<Role> roles;
 }
