@@ -32,8 +32,3 @@ public class Project {
     private User owner;
 }
 
-enum ProjectStatus {
-    OPEN,
-    IN_PROGRESS,
-    CLOSED
-}

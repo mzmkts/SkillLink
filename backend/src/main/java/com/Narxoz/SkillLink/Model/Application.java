@@ -30,8 +30,3 @@ public class Application {
     private ApplicationStatus status;
 }
 
-enum ApplicationStatus {
-    PENDING,
-    ACCEPTED,
-    REJECTED
-}
