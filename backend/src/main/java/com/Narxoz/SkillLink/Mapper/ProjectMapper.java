@@ -1,21 +1,23 @@
 package com.Narxoz.SkillLink.Mapper;
 
-import com.Narxoz.SkillLink.Dto.ProjectCreateDto;
-import com.Narxoz.SkillLink.Dto.ProjectResponseDto;
+import com.Narxoz.SkillLink.Dto.ProjectDto;
+import com.Narxoz.SkillLink.Dto.UserDto;
 import com.Narxoz.SkillLink.Model.Project;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import com.Narxoz.SkillLink.Model.User;
+import org.mapstruct.*;
 
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProjectMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "status", constant = "OPEN")
-    @Mapping(target = "owner", ignore = true)
-    Project toEntity(ProjectCreateDto dto);
+    @Mapping(source = "owner.userId", target = "ownerId")
+    @Mapping(source = "owner.email", target = "ownerName")
+    @Mapping(source = "status", target = "status")
+    ProjectDto toDto(Project project);
 
-    @Mapping(target = "ownerName", source = "owner.name")
-    @Mapping(target = "status", expression = "java(project.getStatus().name())")
-    ProjectResponseDto toDto(Project project);
+    @Mapping(target = "owner", ignore = true)
+    Project toEntity(ProjectDto dto);
+
+    List<ProjectDto> toDtoList(List<Project> projects);
 }

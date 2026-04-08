@@ -9,8 +9,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectCreateDto {
+public class ProjectDto {
+    private Long id;
     private String title;
     private String description;
     private String category;
+    private String status;
+    private Long ownerId;
+    private String ownerName;
 }

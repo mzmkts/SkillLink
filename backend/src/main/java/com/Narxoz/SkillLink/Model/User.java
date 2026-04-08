@@ -34,7 +34,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String school;
 
-    @Column(nullable = false)
+    @ElementCollection
     private List<String> skills;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -46,7 +46,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 
     @Override

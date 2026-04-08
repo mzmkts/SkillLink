@@ -1,24 +1,24 @@
 package com.Narxoz.SkillLink.Mapper;
 
-import com.Narxoz.SkillLink.Dto.ApplicationCreateDto;
-import com.Narxoz.SkillLink.Dto.ApplicationResponseDto;
-import com.Narxoz.SkillLink.Model.Application;
-import com.Narxoz.SkillLink.Model.Project;
-import com.Narxoz.SkillLink.Model.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import com.Narxoz.SkillLink.Dto.ApplicationDto;
+import com.Narxoz.SkillLink.Model.ProjectApplication;
+import org.mapstruct.*;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ApplicationMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "status", constant = "PENDING")
-    @Mapping(target = "student", source = "student")
-    @Mapping(target = "project", source = "project")
-    Application toEntity(ApplicationCreateDto dto, User student, Project project);
+    @Mapping(source = "student.userId", target = "studentId")
+    @Mapping(source = "student.email", target = "studentName")
+    @Mapping(source = "project.id", target = "projectId")
+    @Mapping(source = "project.title", target = "projectTitle")
+    @Mapping(source = "status", target = "status")
+    ApplicationDto toDto(ProjectApplication application);
 
-    @Mapping(target = "studentName", source = "student.name")
-    @Mapping(target = "projectTitle", source = "project.title")
-    @Mapping(target = "status", expression = "java(application.getStatus().name())")
-    ApplicationResponseDto toDto(Application application);
+    @Mapping(target = "student", ignore = true)
+    @Mapping(target = "project", ignore = true)
+    ProjectApplication toEntity(ApplicationDto dto);
+
+    List<ApplicationDto> toDtoList(List<ProjectApplication> applications);
 }
