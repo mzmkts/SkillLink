@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    private String userIdDto;
+    private Long userIdDto;
     private String firstNameDto;
     private String lastNameDto;
     private String passwordDto;
