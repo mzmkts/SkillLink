@@ -23,6 +23,7 @@ public class Application {
     private User student;
 
     @ManyToOne
+    @JoinColumn(name = "project_id")
     private Project project;
 
     @Enumerated(EnumType.STRING)
