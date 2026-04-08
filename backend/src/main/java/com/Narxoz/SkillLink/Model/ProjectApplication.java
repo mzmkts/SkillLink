@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "t_application", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "project_id"}))
-public class Application {
+public class ProjectApplication {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
