@@ -7,7 +7,8 @@ import com.Narxoz.SkillLink.Model.User;
 import java.util.List;
 
 public interface UserService {
-    List<UserDto> getAll();
+
+    List<UserDto> getAll(String name, String surname, String school, String skill);
 
     UserDto getById(Long id);
 

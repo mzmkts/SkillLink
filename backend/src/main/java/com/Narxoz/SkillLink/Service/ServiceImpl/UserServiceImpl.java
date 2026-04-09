@@ -1,39 +1,45 @@
 package com.Narxoz.SkillLink.Service.ServiceImpl;
 
+import com.Narxoz.SkillLink.Config.ProjectSpecification;
+import com.Narxoz.SkillLink.Config.UserSpecification;
 import com.Narxoz.SkillLink.Dto.UserDto;
 import com.Narxoz.SkillLink.Mapper.UserMapper;
+import com.Narxoz.SkillLink.Model.Project;
 import com.Narxoz.SkillLink.Model.Role;
+import com.Narxoz.SkillLink.Model.Skill;
 import com.Narxoz.SkillLink.Model.User;
 import com.Narxoz.SkillLink.Repo.RoleRepo;
+import com.Narxoz.SkillLink.Repo.SkillRepo;
 import com.Narxoz.SkillLink.Repo.UserRepo;
 import com.Narxoz.SkillLink.Service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
-    @Autowired
-    private UserRepo userRepo;
-    @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private RoleRepo roleRepo;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
+    private final UserRepo userRepo;
+    private final UserMapper userMapper;
+    private final RoleRepo roleRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final SkillRepo skillRepo;
 
     @Override
-    public List<UserDto> getAll() {
-        List<User> users = userRepo.findAll();
+    public List<UserDto> getAll(String name, String surname, String school, String skill) {
+        Specification<User> spec = Specification.where(UserSpecification
+                .hasFirstName(name)
+                .and(UserSpecification.hasLastName(surname))
+                .and(UserSpecification.hasSchool(school))
+                .and(UserSpecification.hasSkill(skill)));
+        List<User> users = userRepo.findAll(spec);
         List<UserDto> userDtos = userMapper.toDtoList(users);
         return userDtos;
     }
@@ -49,13 +55,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (check == null) {
             String encodedPassword = passwordEncoder.encode(userDto.getPasswordDto());
             User user = new User();
-            List<Role> roles = List.of(roleRepo.getRoleByName("ROLE_USER"));
+            List<Role> roles = List.of(roleRepo.getRoleByName("ROLE_STUDENT"));
             user.setFirstName(userDto.getFirstNameDto());
             user.setLastName(userDto.getLastNameDto());
             user.setEmail(userDto.getEmailDto());
             user.setPassword(encodedPassword);
             user.setSchool(userDto.getSchool());
-            user.setSkills(userDto.getSkills());
+            List<Skill> skills = userDto.getSkills().stream()
+                    .map(name -> skillRepo.findByName(name)
+                            .orElseGet(() -> {
+                                Skill s = new Skill();
+                                s.setName(name);
+                                return skillRepo.save(s);
+                            }))
+                    .toList();
+
+            user.setSkills(skills);
             user.setRoles(roles);
             userRepo.save(user);
         }
@@ -69,7 +84,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         existingUser.setPassword(passwordEncoder.encode(userDto.getPasswordDto()));
         existingUser.setRoles(userDto.getRoles());
         existingUser.setSchool(userDto.getSchool());
-        existingUser.setSkills(userDto.getSkills());
+        List<Skill> skills = userDto.getSkills().stream()
+                .map(name -> skillRepo.findByName(name)
+                        .orElseGet(() -> {
+                            Skill s = new Skill();
+                            s.setName(name);
+                            return skillRepo.save(s);
+                        }))
+                .toList();
+
+        existingUser.setSkills(skills);
         userRepo.save(existingUser);
     }
 
