@@ -1,5 +1,6 @@
 package com.Narxoz.SkillLink.Service.ServiceImpl;
 
+import com.Narxoz.SkillLink.Config.ProjectSpecification;
 import com.Narxoz.SkillLink.Dto.ProjectDto;
 import com.Narxoz.SkillLink.Mapper.ProjectMapper;
 import com.Narxoz.SkillLink.Model.Project;
@@ -8,8 +9,7 @@ import com.Narxoz.SkillLink.Repo.ProjectRepo;
 import com.Narxoz.SkillLink.Service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
+import org.springframework.data.jpa.domain.Specification;
 import java.util.List;
 
 @Service
@@ -20,8 +20,9 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepo projectRepo;
 
     @Override
-    public List<ProjectDto> getProjects() {
-        List<Project> projects = projectRepo.findAll();
+    public List<ProjectDto> getProjects(String title, String category) {
+        Specification<Project> spec = Specification.where(ProjectSpecification.hasTitle(title)).and(ProjectSpecification.hasCategory(category));
+        List<Project> projects = projectRepo.findAll(spec);
         List<ProjectDto> projectDtos = projectMapper.toDtoList(projects);
         return projectDtos;
     }

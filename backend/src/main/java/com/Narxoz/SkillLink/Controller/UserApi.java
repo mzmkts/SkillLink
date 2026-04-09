@@ -15,8 +15,11 @@ public class UserApi {
     private final UserService userService;
 
     @GetMapping("/user")
-    public ResponseEntity<?> getAll(){
-        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+    public ResponseEntity<?> getAll(@RequestParam(required = false) String name,
+                                    @RequestParam(required = false) String surname,
+                                    @RequestParam(required = false) String school,
+                                    @RequestParam(required = false) String skill){
+        return new ResponseEntity<>(userService.getAll(name, surname, school, skill), HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")

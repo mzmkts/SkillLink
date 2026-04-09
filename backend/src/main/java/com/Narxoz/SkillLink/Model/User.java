@@ -34,8 +34,13 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String school;
 
-    @ElementCollection
-    private List<String> skills;
+    @ManyToMany
+    @JoinTable(
+            name = "user_skills",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    private List<Skill> skills;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
