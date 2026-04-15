@@ -1,0 +1,59 @@
+/* Уникальные стили для навигационного бара */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 1px solid #eee;
+    background-color: #ffffff;
+}
+
+.header-left a {
+    text-decoration: none;
+    color: #4A8B8C;
+    margin-right: 20px;
+    font-weight: 500;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #4A8B8C;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-link {
+    text-decoration: none;
+    color: #4A8B8C;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.icon-link span {
+    border: 1px solid #4A8B8C;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-login {
+    background: #F8FAFC;
+    color: #333333;
+    padding: 10px 20px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}

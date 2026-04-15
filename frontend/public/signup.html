@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Skill Link</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="navbar.js" defer></script>
+</head>
+<body>
+<main class="main-content">
+    <div class="auth-wrapper">
+        <div class="modal-container signup-modal">
+            <a href="/" class="modal-close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="#ccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+            <h2>Регистрация</h2>
+            <form id="signupForm">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="firstName">Имя</label>
+                        <input type="text" id="firstName" placeholder="Иван" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="lastName">Фамилия</label>
+                        <input type="text" id="lastName" placeholder="Иванов" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" placeholder="somemail@mail.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="schoolSelect">Школа</label>
+                    <select id="schoolSelect" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white;">
+                        <option value="" disabled selected>Выберите вашу школу</option>
+                        <option value="Школа цифровых технологий">Школа цифровых технологий</option>
+                        <option value="Школа экономики и менеджмента">Школа экономики и менеджмента</option>
+                        <option value="Narxoz Business School">Narxoz Business School</option>
+                        <option value="Гуманитарная школа">Гуманитарная школа</option>
+                        <option value="Школа права и государственного управления">Школа права и государственного управления</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="signupPassword">Пароль</label>
+                    <input type="password" id="signupPassword" placeholder="Введите пароль" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary auth-btn">Зарегистрироваться</button>
+
+                <a href="/signin" class="switch-auth">У меня уже есть аккаунт</a>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2024 Skill Link — сервис для создания, поиска команды.</p>
+    <div class="footer-links">
+        <a href="#">Контактная информация</a>
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Пользовательское соглашение</a>
+    </div>
+</footer>
+
+<script src="auth.js"></script>
+</body>
+</html>

@@ -40,8 +40,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 .and(UserSpecification.hasSchool(school))
                 .and(UserSpecification.hasSkill(skill)));
         List<User> users = userRepo.findAll(spec);
-        List<UserDto> userDtos = userMapper.toDtoList(users);
-        return userDtos;
+        return userMapper.toDtoList(users);
     }
 
     @Override
@@ -61,21 +60,26 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setEmail(userDto.getEmailDto());
             user.setPassword(encodedPassword);
             user.setSchool(userDto.getSchool());
-            List<Skill> skills = userDto.getSkills().stream()
-                    .map(name -> skillRepo.findByName(name)
-                            .orElseGet(() -> {
-                                Skill s = new Skill();
-                                s.setName(name);
-                                return skillRepo.save(s);
-                            }))
-                    .toList();
-
+            List<Skill> skills = new java.util.ArrayList<>();
+            if (userDto.getSkills() != null && !userDto.getSkills().isEmpty()) {
+                skills = userDto.getSkills().stream()
+                        .map(name -> skillRepo.findByName(name)
+                                .orElseGet(() -> {
+                                    Skill s = new Skill();
+                                    s.setName(name);
+                                    return skillRepo.save(s);
+                                }))
+                        .toList();
+            }
             user.setSkills(skills);
             user.setRoles(roles);
             userRepo.save(user);
+        } else {
+            throw new RuntimeException("Пользователь с таким email уже существует");
         }
     }
 
+    @Override
     public void updateUser(Long id, UserDto userDto) {
         User existingUser = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
         existingUser.setFirstName(userDto.getFirstNameDto());
@@ -84,14 +88,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         existingUser.setPassword(passwordEncoder.encode(userDto.getPasswordDto()));
         existingUser.setRoles(userDto.getRoles());
         existingUser.setSchool(userDto.getSchool());
-        List<Skill> skills = userDto.getSkills().stream()
-                .map(name -> skillRepo.findByName(name)
-                        .orElseGet(() -> {
-                            Skill s = new Skill();
-                            s.setName(name);
-                            return skillRepo.save(s);
-                        }))
-                .toList();
+        List<Skill> skills = new java.util.ArrayList<>();
+        if (userDto.getSkills() != null && !userDto.getSkills().isEmpty()) {
+            skills = userDto.getSkills().stream()
+                    .map(name -> skillRepo.findByName(name)
+                            .orElseGet(() -> {
+                                Skill s = new Skill();
+                                s.setName(name);
+                                return skillRepo.save(s);
+                            }))
+                    .toList();
+        }
 
         existingUser.setSkills(skills);
         userRepo.save(existingUser);
@@ -100,6 +107,24 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void deleteUser(Long id) {
         userRepo.deleteById(id);
+    }
+
+    @Override
+    public UserDto login(String email, String password) {
+        User user = userRepo.getByEmail(email);
+
+        // 1. Проверяем, существует ли пользователь
+        if (user == null) {
+            throw new RuntimeException("Пользователь с email " + email + " не найден");
+        }
+
+        // 2. Проверяем пароль (сравниваем чистый пароль из формы с зашифрованным в БД)
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new RuntimeException("Неверный пароль");
+        }
+
+        // 3. Возвращаем UserDto с помощью твоего маппера
+        return userMapper.toDto(user);
     }
 
     @Override
