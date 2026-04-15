@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping("/api/user")
 public class UserApi {
     private final UserService userService;
 
-    @GetMapping("/user")
+    @GetMapping
     public ResponseEntity<?> getAll(@RequestParam(required = false) String name,
                                     @RequestParam(required = false) String surname,
                                     @RequestParam(required = false) String school,
@@ -22,23 +22,18 @@ public class UserApi {
         return new ResponseEntity<>(userService.getAll(name, surname, school, skill), HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id){
         return new ResponseEntity<>(userService.getById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/user/register")
-    public ResponseEntity<?> register(@RequestBody UserDto userDto){
-        userService.register(userDto);
-        return new  ResponseEntity<>(HttpStatus.OK);
-    }
-    @PutMapping("/user/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody UserDto userDto){
         userService.updateUser(id, userDto);
         return new  ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
