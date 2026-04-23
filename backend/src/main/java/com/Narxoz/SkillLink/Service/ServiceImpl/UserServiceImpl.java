@@ -135,4 +135,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         throw new UsernameNotFoundException("User not found with email: " + email);
     }
+    @Override
+    public void updateAvatar(Long id, String avatarUrl) {
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setAvatarUrl(avatarUrl);
+        userRepo.save(user);
+    }
 }

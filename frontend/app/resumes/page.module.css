@@ -1,0 +1,442 @@
+/* затемнение фона */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 60px;
+    z-index: 1000;
+}
+
+/* сама модалка */
+.filterModal {
+    background: #f6f7f7;
+    border-radius: 16px;
+    width: 800px;
+    padding: 28px 32px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* header */
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modalTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: #4f7c7b;
+}
+
+.closeBtn {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #9aa6a6;
+}
+
+/* контент */
+.filterContent {
+    display: flex;
+    gap: 80px;
+    margin-bottom: 32px;
+}
+
+.filterColumn h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #4f7c7b;
+}
+
+/* чекбоксы */
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    font-size: 15px;
+    color: #4a6c6b;
+    position: relative;
+}
+
+/* скрываем дефолтный checkbox */
+.checkboxContainer input {
+    display: none;
+}
+
+/* кастомный чекбокс */
+.checkmark {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #c7d3d3;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    transition: 0.2s;
+}
+
+/* checked состояние */
+.checkboxContainer input:checked + .checkmark {
+    background-color: #6fa8a6;
+    border-color: #6fa8a6;
+}
+
+/* галочка */
+.checkboxContainer input:checked + .checkmark::after {
+    content: "✓";
+    position: absolute;
+    font-size: 12px;
+    color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+}
+
+/* footer */
+.modalFooter {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* кнопки */
+.applyBtn {
+    padding: 14px 32px;
+    border-radius: 10px;
+    border: 2px solid #6fa8a6;
+    background: transparent;
+    color: #4f7c7b;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.applyBtn:hover {
+    background: #6fa8a6;
+    color: white;
+}
+
+.clearBtn {
+    padding: 14px 32px;
+    border-radius: 10px;
+    border: 2px solid #d9e1e1;
+    background: transparent;
+    color: #b5bfbf;
+    font-size: 16px;
+    cursor: pointer;
+}
+.mainContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.hero h1 {
+    font-size: 32px;
+    color: #4a7d8c;
+    margin-bottom: 10px;
+}
+
+.heroBtn {
+    display: inline-block;
+    background-color: #8ccbe6;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.searchBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.searchBar input {
+    border: none;
+    background: transparent;
+    width: 60%;
+    outline: none;
+}
+
+.projectsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 30px;
+}
+
+.projectCard {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.projectCard:hover {
+    transform: translateY(-5px);
+}
+
+.projectTitle {
+    color: #2d6a7a;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.category {
+    color: #a0c4cf;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.description {
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.metaInfo {
+    font-size: 12px;
+    color: #999;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.cardActions {
+    display: flex;
+    gap: 15px;
+}
+
+.applyBtn {
+    background: #8ccbe6;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.membersBtn {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.howToSection {
+    margin-top: 100px;
+    margin-bottom: 80px;
+    text-align: center;
+}
+
+.sectionTitle {
+    font-size: 28px;
+    color: #6da9be;
+    font-weight: 400;
+    margin-bottom: 50px;
+}
+
+.stepsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
+    gap: 30px;
+}
+
+.stepCard {
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    text-align: left;
+    /* Очень мягкая тень как на макете */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+.stepNum {
+    color: #6da9be;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.stepSubTitle {
+    font-weight: 700;
+    font-size: 14px;
+    color: #6da9be;
+    margin-bottom: 15px;
+}
+
+.stepText {
+    font-size: 13px;
+    color: #6da9be;
+    line-height: 1.6;
+    white-space: pre-line;
+    margin: 0;
+}
+.wrapper {
+    background-color: #f8fafb;
+    min-height: 100vh;
+    padding: 40px 10%;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Контейнер поиска */
+.searchContainer {
+    display: flex;
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border: 1.5px solid #d0e0e3;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.searchBox {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #f1f5f6;
+    border-radius: 6px;
+    padding: 8px 15px;
+}
+
+.searchBox input {
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: #7a9a9f;
+    padding-left: 10px;
+}
+
+.filterButton {
+    background: white;
+    border: 1.5px solid #d0e0e3;
+    border-radius: 6px;
+    color: #7a9a9f;
+    padding: 0 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.projectCard {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.projectCard:hover {
+    border-color: #d0e0e3;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Заглушка вместо фото */
+.userAvatar {
+    width: 50px;
+    height: 50px;
+    background-color: #eef9ff;
+    border: 1.5px solid #8ccbe6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5b8e9d;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.projectTitle {
+    color: #5b8e9d;
+    font-size: 18px;
+    margin: 0;
+}
+
+.userSchool {
+    font-size: 13px;
+    color: #a3b8bc;
+}
+
+/* Скиллы в виде тегов */
+.skillsWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.skillTag {
+    background: #f0f7f7;
+    color: #5b8e9d;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.noSkills {
+    font-size: 12px;
+    color: #ccc;
+}
+
+/* Кнопка профиля */
+.cardFooter {
+    margin-top: auto;
+}
+
+.profileLinkBtn {
+    display: block;
+    text-align: center;
+    background-color: transparent;
+    color: #5b8e9d;
+    border: 1.5px solid #5b8e9d;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.profileLinkBtn:hover {
+    background-color: #5b8e9d;
+    color: white;
+}

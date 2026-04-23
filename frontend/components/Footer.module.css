@@ -1,0 +1,45 @@
+.footer {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 40px 0 60px; /* Больше отступа снизу, как в оригинале */
+    border-top: 1px solid #f2f2f2; /* Тонкая линия сверху */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.copyright {
+    color: #999;
+    font-size: 14px;
+    margin: 0;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* Широкие отступы между ссылками */
+}
+
+.link {
+    color: #a0aeb1; /* Нежно-серый цвет */
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s ease;
+}
+
+.link:hover {
+    color: #6da9be; /* Цвет при наведении */
+}
+
+/* Адаптивность для мобилок */
+@media (max-width: 768px) {
+    .links {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}

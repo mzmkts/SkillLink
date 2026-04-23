@@ -1,7 +1,6 @@
 package com.Narxoz.SkillLink.Controller;
 
 import com.Narxoz.SkillLink.Dto.UserDto;
-import com.Narxoz.SkillLink.Model.User;
 import com.Narxoz.SkillLink.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
-public class UserApi {
+public class UserController {
     private final UserService userService;
 
     @GetMapping
@@ -37,5 +36,9 @@ public class UserApi {
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PatchMapping("/{id}/avatar")
+    public void updateAvatar(@PathVariable Long id, @RequestBody String avatarUrl) {
+        userService.updateAvatar(id, avatarUrl);
     }
 }

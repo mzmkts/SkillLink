@@ -1,0 +1,159 @@
+.authOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.authModal {
+    background: white;
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.authTitle {
+    color: #4a8e8e; /* Фирменный бирюзовый */
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.authForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputGroup label {
+    color: #6da9be;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.labelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forgotPass {
+    font-size: 12px;
+    color: #999;
+    cursor: pointer;
+}
+
+.authForm input {
+    background: #f9f9f9;
+    border: none;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+}
+
+.authForm input::placeholder {
+    color: #ccc;
+}
+
+.submitBtn {
+    background: white;
+    border: 1.5px solid #4a8e8e;
+    color: #4a8e8e;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.submitBtn:hover {
+    background: #4a8e8e;
+    color: white;
+}
+
+.switchAuth {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #999;
+    font-size: 14px;
+    text-decoration: none;
+}
+/* Общий контейнер для селекта */
+.selectWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.authSelect {
+    width: 100%;
+    background: #f9f9f9; /* Тот же цвет, что у input на макете */
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    cursor: pointer;
+
+    /* Скрываем стандартную стрелку браузера */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+/* Создаем кастомную стрелочку через псевдоэлемент или background-image */
+.selectWrapper::after {
+    content: "";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    /* Используем SVG иконку стрелочки вниз цвета ваших заголовков */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236da9be' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none; /* Чтобы клик проходил сквозь стрелку в селект */
+}
+
+/* Стиль для подсказки (placeholder), когда ничего не выбрано */
+.authSelect:invalid {
+    color: #ccc;
+}
+
+/* Стиль опций внутри списка */
+.authSelect option {
+    color: #333;
+    background: white;
+    padding: 10px;
+}

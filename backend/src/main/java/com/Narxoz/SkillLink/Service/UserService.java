@@ -19,4 +19,6 @@ public interface UserService {
     void deleteUser(Long id);
 
     UserDto login(String email, String password);
+
+    void updateAvatar(Long id, String avatarUrl);
 }

@@ -9,8 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ApplicationMapper {
 
-    @Mapping(source = "student.userId", target = "studentId")
-    @Mapping(source = "student.email", target = "studentName")
+    @Mapping(target = "studentName", expression = "java(application.getStudent().getLastName() + \" \" + application.getStudent().getFirstName())")
     @Mapping(source = "project.id", target = "projectId")
     @Mapping(source = "project.title", target = "projectTitle")
     @Mapping(source = "status", target = "status")

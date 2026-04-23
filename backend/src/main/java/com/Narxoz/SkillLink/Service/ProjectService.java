@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProjectService {
     List<ProjectDto> getProjects(String title, String category);
     ProjectDto getProjectById(Long id);
-    void createProject(ProjectDto projectCreateDto, User owner);
-    void updateProject(Long id, ProjectDto projectDto, User owner);
+    void createProject(ProjectDto projectCreateDto);
+    void updateProject(Long id,ProjectDto projectDto);
     void deleteProject(Long id);
 }

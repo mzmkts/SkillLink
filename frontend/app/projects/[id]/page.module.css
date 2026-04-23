@@ -1,0 +1,128 @@
+.container {
+    padding: 60px 10%;
+    background-color: #ffffff;
+    min-height: 100vh;
+}
+
+.backBtn {
+    background: none;
+    border: none;
+    color: #8ccbe6;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.projectWrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid #f0f4f5;
+    padding-bottom: 20px;
+}
+
+.titleRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projectTitle {
+    color: #5b8e9d;
+    font-size: 36px;
+    margin: 0;
+}
+
+.statusBadge {
+    background: #eef9ff;
+    color: #8ccbe6;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.ownerInfo {
+    color: #a3b8bc;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.contentGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+}
+
+.sectionTitle {
+    color: #5b8e9d;
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.descriptionText {
+    line-height: 1.8;
+    color: #444;
+    white-space: pre-wrap;
+    font-size: 16px;
+}
+
+.sidebarCard {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+}
+
+.memberItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    color: #555;
+    font-weight: 500;
+}
+
+.avatarCircle {
+    width: 35px;
+    height: 35px;
+    background: #8ccbe6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.applyBtnLarge {
+    width: 100%;
+    background: #8ccbe6;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s;
+}
+
+.applyBtnLarge:hover {
+    transform: translateY(-2px);
+    background: #6da9be;
+}
+
+@media (max-width: 900px) {
+    .contentGrid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -19,10 +19,8 @@ public class Project {
 
     private String title;
 
-    @Column(length = 2000)
+    @Column(length = 3000)
     private String description;
-
-    private String category;
 
     @Enumerated(EnumType.STRING)
     private ProjectStatus status;

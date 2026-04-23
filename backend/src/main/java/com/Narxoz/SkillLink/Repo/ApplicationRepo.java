@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface ApplicationRepo extends JpaRepository<ProjectApplication, Long> {
     List<ProjectApplication> findByStudentAndProject(User student, Project project);
+    boolean existsByStudent_UserIdAndProject_Id(Long userId, Long projectId);
 }

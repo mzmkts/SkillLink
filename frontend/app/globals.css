@@ -1,0 +1,28 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    font-family: 'Inter', -apple-system, sans-serif; /* Похоже на шрифт в макете */
+    background-color: #FFFFFF;
+    color: #333;
+}
+
+/* Глобальный контейнер для центрирования */
+.container {
+    width: 100%;
+    max-width: 1200px; /* Максимальная ширина как в дизайне */
+    margin: 0 auto;    /* Центрирует блок по горизонтали */
+    box-sizing: border-box;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Плавный переход для всех кнопок */
+button {
+    transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+button:active {
+    transform: scale(0.98);
+}
