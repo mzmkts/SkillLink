@@ -12,7 +12,7 @@ public interface ApplicationService {
 
     ApplicationDto getApplicationById(Long id);
 
-    void createApplication(Long projectId, User student);
+    void createApplication(Long projectId);
 
     void updateApplicationStatus(Long id, String status);
 

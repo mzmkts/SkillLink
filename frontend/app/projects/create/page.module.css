@@ -1,0 +1,109 @@
+.container {
+    max-width: 750px;
+    margin: 50px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.title {
+    color: #5b8e9d;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.authorInfo {
+    color: #a3b8bc;
+    font-size: 14px;
+}
+
+.inputGroup {
+    margin-bottom: 20px;
+}
+
+.inputGroup label {
+    display: block;
+    margin-bottom: 8px;
+    color: #5b8e9d;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.5px solid #d0e0e3;
+    border-radius: 8px;
+    background: #fcfdfe;
+    outline: none;
+    font-family: inherit;
+    transition: 0.2s;
+}
+
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+    border-color: #5b8e9d;
+}
+
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.submitBtn {
+    flex: 2;
+    background-color: #8ccbe6;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submitBtn:hover {
+    background-color: #5b8e9d;
+}
+
+.cancelBtn {
+    flex: 1;
+    background: transparent;
+    border: 1.5px solid #d0e0e3;
+    color: #a3b8bc;
+    padding: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.labelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.charCount {
+    font-size: 12px;
+    color: #a3b8bc;
+    font-weight: 500;
+}
+
+.limitReached {
+    color: #ff4d4f; /* Красный цвет при достижении лимита */
+    font-weight: bold;
+}
+
+/* На всякий случай обновляем стили textarea для удобства ввода большого текста */
+.inputGroup textarea {
+    resize: vertical;
+    min-height: 200px;
+}

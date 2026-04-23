@@ -1,6 +1,7 @@
 package com.Narxoz.SkillLink.Service.ServiceImpl;
 
 
+import com.Narxoz.SkillLink.Application;
 import com.Narxoz.SkillLink.Dto.ApplicationDto;
 import com.Narxoz.SkillLink.Mapper.ApplicationMapper;
 import com.Narxoz.SkillLink.Model.ProjectApplication;
@@ -9,8 +10,10 @@ import com.Narxoz.SkillLink.Model.Project;
 import com.Narxoz.SkillLink.Model.User;
 import com.Narxoz.SkillLink.Repo.ApplicationRepo;
 import com.Narxoz.SkillLink.Repo.ProjectRepo;
+import com.Narxoz.SkillLink.Repo.UserRepo;
 import com.Narxoz.SkillLink.Service.ApplicationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +25,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final ApplicationRepo applicationRepo;
     private final ProjectRepo projectRepo;
     private final ApplicationMapper applicationMapper;
+    private final UserRepo userRepo;
 
     @Override
     public List<ApplicationDto> getApplications() {
@@ -39,17 +43,31 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void createApplication(Long projectId, User student) {
+    public void createApplication(Long projectId) {
+        Long userId = ((User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal())
+                .getUserId();
+
+        User student = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         Project project = projectRepo.findById(projectId)
-                .orElseThrow(() -> new RuntimeException("Project not found with id: " + projectId));
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+        if (applicationRepo.existsByStudent_UserIdAndProject_Id(
+                student.getUserId(), projectId)) {
 
-        ProjectApplication projectApplication = new ProjectApplication();
-        projectApplication.setStudent(student);
-        projectApplication.setProject(project);
-        projectApplication.setStatus(ApplicationStatus.PENDING);
+            throw new RuntimeException("You already applied to this project");
+        }
 
-        applicationRepo.save(projectApplication);
+
+        ProjectApplication application = new ProjectApplication();
+        application.setStudent(student);
+        application.setProject(project);
+        application.setStatus(ApplicationStatus.PENDING);
+
+        applicationRepo.save(application);
     }
 
     @Override

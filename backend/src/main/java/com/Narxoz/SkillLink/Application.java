@@ -12,6 +12,7 @@ public class Application {
         System.setProperty("PG_USERNAME", dotenv.get("PG_USERNAME"));
         System.setProperty("PG_PASSWORD", dotenv.get("PG_PASSWORD"));
         System.setProperty("PG_URL", dotenv.get("PG_URL"));
+        System.setProperty("JWT_SECRET", dotenv.get("JWT_SECRET"));
         SpringApplication.run(Application.class, args);
     }
 

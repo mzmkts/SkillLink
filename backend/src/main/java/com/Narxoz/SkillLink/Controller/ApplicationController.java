@@ -26,16 +26,9 @@ public class ApplicationController {
     }
 
     @PostMapping
-    public void createApplication(@RequestParam Long projectId,
-                                  @RequestParam Long studentId) {
-
-        // ⚠️ временно (пока нет auth)
-        User student = new User();
-        student.setUserId(studentId);
-
-        applicationService.createApplication(projectId, student);
+    public void createApplication(@RequestParam Long projectId) {
+        applicationService.createApplication(projectId);
     }
-
     @PutMapping("/{id}/status")
     public void updateStatus(@PathVariable Long id,
                              @RequestParam String status) {

@@ -21,4 +21,5 @@ public class UserDto {
     private String school;
     private List<String> skills;
     private List<Role> roles;
+    private String avatarUrl;
 }

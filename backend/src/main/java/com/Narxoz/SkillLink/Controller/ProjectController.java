@@ -29,21 +29,13 @@ public class ProjectController {
 
     @PostMapping
     public void createProject(@RequestBody ProjectDto projectDto) {
-        // ⚠️ временно (пока нет auth)
-        User owner = new User();
-        owner.setUserId(projectDto.getOwnerId());
-
-        projectService.createProject(projectDto, owner);
+        projectService.createProject(projectDto);
     }
 
     @PutMapping("/{id}")
     public void updateProject(@PathVariable Long id,
                               @RequestBody ProjectDto projectDto) {
-
-        User owner = new User();
-        owner.setUserId(projectDto.getOwnerId());
-
-        projectService.updateProject(id, projectDto, owner);
+        projectService.updateProject(id, projectDto);
     }
 
     @DeleteMapping("/{id}")
