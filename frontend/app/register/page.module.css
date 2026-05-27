@@ -1,47 +1,91 @@
+/* ==========================================================================
+   ЗАДНИЙ ФОН И ЦЕНТРИРОВАНИЕ (OVERLAY)
+   ========================================================================== */
 .authOverlay {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 15, 30, 0.7); /* Глубокий темный оверлей */
+    backdrop-filter: blur(12px); /* Интеграция размытия заднего плана */
+    -webkit-backdrop-filter: blur(12px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto; /* Позволяет прокручивать оверлей на маленьких экранах */
 }
 
+/* ==========================================================================
+   КОНТЕЙНЕР МОДАЛЬНОГО ОКНА (GLASSMORPHISM CARD)
+   ========================================================================== */
 .authModal {
-    background: white;
-    width: 100%;
-    max-width: 450px;
-    padding: 40px;
-    border-radius: 12px;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 480px; /* Немного увеличили ширину под парные поля */
+    background: rgba(22, 32, 54, 0.55); /* Полупрозрачный фон */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    box-sizing: border-box;
+    box-shadow:
+            0 25px 50px -12px rgba(0, 0, 0, 0.5),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    animation: modalScaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin: auto; /* Для правильного центрирования при переполнении */
 }
 
+/* Кнопка закрытия окна (крестик) */
 .closeBtn {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #ccc;
-    cursor: pointer;
+    top: 24px;
+    right: 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10;
 }
 
+.closeBtn:hover {
+    color: #ffffff;
+    transform: scale(1.15);
+}
+
+/* Заголовок формы */
 .authTitle {
-    color: #4a8e8e; /* Фирменный бирюзовый */
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 700;
-    margin-bottom: 30px;
+    color: #ffffff;
+    margin: 0 0 30px 0;
+    letter-spacing: -0.02em;
+    text-align: left;
 }
 
+/* ==========================================================================
+   ФОРМА И ЭЛЕМЕНТЫ СЕТКИ (LAYOUT)
+   ========================================================================== */
 .authForm {
     display: flex;
     flex-direction: column;
     gap: 20px;
+}
+
+/* Строка для Имени и Фамилии (в две колонки) */
+.row {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+.row .inputGroup {
+    flex: 1;
 }
 
 .inputGroup {
@@ -50,110 +94,184 @@
     gap: 8px;
 }
 
-.inputGroup label {
-    color: #6da9be;
-    font-size: 14px;
-    font-weight: 500;
-}
-
+/* Контейнер для выравнивания "Пароль" и "Я забыл пароль" */
 .labelRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.inputGroup label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Ссылка "Я забыл пароль" */
 .forgotPass {
     font-size: 12px;
-    color: #999;
+    color: #38bdf8;
     cursor: pointer;
+    transition: color 0.2s ease;
 }
 
-.authForm input {
-    background: #f9f9f9;
-    border: none;
-    padding: 15px;
-    border-radius: 6px;
+.forgotPass:hover {
+    color: #7dd3fc;
+    text-decoration: underline;
+}
+
+/* Ошибки валидации/сервера */
+.errorMessage {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    padding: 12px 16px;
+    border-radius: 12px;
     font-size: 14px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   ИНПУТЫ И ВЫПАДАЮЩИЙ СПИСОК (INPUTS & SELECT)
+   ========================================================================== */
+.inputGroup input,
+.authSelect {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 15px;
+    font-family: inherit;
     outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
 }
 
-.authForm input::placeholder {
-    color: #ccc;
+.inputGroup input::placeholder {
+    color: #475569;
 }
 
-.submitBtn {
-    background: white;
-    border: 1.5px solid #4a8e8e;
-    color: #4a8e8e;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.submitBtn:hover {
-    background: #4a8e8e;
-    color: white;
-}
-
-.switchAuth {
-    display: block;
-    text-align: center;
-    margin-top: 25px;
-    color: #999;
-    font-size: 14px;
-    text-decoration: none;
-}
-/* Общий контейнер для селекта */
+/* Обертка для селекта, чтобы добавить кастомную стрелочку */
 .selectWrapper {
     position: relative;
     width: 100%;
 }
 
-.authSelect {
-    width: 100%;
-    background: #f9f9f9; /* Тот же цвет, что у input на макете */
-    border: none;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 14px;
-    color: #333;
-    outline: none;
-    cursor: pointer;
-
-    /* Скрываем стандартную стрелку браузера */
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-/* Создаем кастомную стрелочку через псевдоэлемент или background-image */
 .selectWrapper::after {
-    content: "";
+    content: "▼";
+    font-size: 10px;
+    color: #94a3b8;
     position: absolute;
-    right: 15px;
+    right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    width: 12px;
-    height: 12px;
-    /* Используем SVG иконку стрелочки вниз цвета ваших заголовков */
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236da9be' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: contain;
-    pointer-events: none; /* Чтобы клик проходил сквозь стрелку в селект */
+    pointer-events: none; /* Клик проходит сквозь стрелку в селект */
+    transition: color 0.2s ease;
 }
 
-/* Стиль для подсказки (placeholder), когда ничего не выбрано */
-.authSelect:invalid {
-    color: #ccc;
+.selectWrapper:focus-within::after {
+    color: #38bdf8;
 }
 
-/* Стиль опций внутри списка */
+/* Кастомизация нативного селекта */
+.authSelect {
+    appearance: none; /* Убирает стандартную стрелку браузера */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 40px; /* Отступ под нашу стрелочку */
+    cursor: pointer;
+}
+
+/* Стилизация выпадающих опций внутри селекта */
 .authSelect option {
-    color: #333;
-    background: white;
-    padding: 10px;
+    background: #1e293b; /* Темный фон для списка в выпадашке */
+    color: #ffffff;
+}
+
+.authSelect option:disabled {
+    color: #475569;
+}
+
+/* Состояние фокуса элементов */
+.inputGroup input:focus,
+.authSelect:focus {
+    border-color: rgba(56, 189, 248, 0.5);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+}
+
+/* ==========================================================================
+   КНОПКИ И ССЫЛКИ ПЕРЕКЛЮЧЕНИЯ
+   ========================================================================== */
+/* Кнопка "Войти" / "Зарегистрироваться" */
+.submitBtn {
+    width: 100%;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.25);
+}
+
+.submitBtn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    transform: translateY(-1px);
+}
+
+.submitBtn:active {
+    transform: translateY(0);
+}
+
+/* Текст переключения режимов внизу */
+.switchAuth {
+    display: block;
+    text-align: center;
+    margin-top: 24px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.switchAuth:hover {
+    color: #38bdf8;
+}
+
+/* ==========================================================================
+   АНИМАЦИИ И АДАПТИВНОСТЬ
+   ========================================================================== */
+@keyframes modalScaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 480px) {
+    .authModal {
+        padding: 30px 20px;
+    }
+    .authTitle {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    .row {
+        flex-direction: column; /* На смартфонах имя и фамилия встают друг под друга */
+        gap: 20px;
+    }
 }

@@ -32,19 +32,20 @@
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
             http
                     .cors(Customizer.withDefaults())
                     .csrf(csrf -> csrf.disable())
-                    .sessionManagement(sm ->
-                            sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    )
+                    .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authorizeHttpRequests(authz -> authz
                             .requestMatchers("/auth/**").permitAll()
                             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/api/projects/**").permitAll()
-                            .requestMatchers(HttpMethod.GET, "/api/user/**").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/api/resumes", "/api/resumes/**").authenticated()
+
+                            // Разрешаем все GET запросы в API публично
+                            .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+
+                            // Все остальные методы (POST, PUT, DELETE, PATCH) в /api/** требуют авторизации
+                            .requestMatchers("/api/**").authenticated()
+
                             .anyRequest().authenticated()
                     );
 

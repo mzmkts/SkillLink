@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Link from 'next/link';
+// import Image from 'next/image'; // Не используем, так как изображение будет фоном CSS
 
 export default function Home() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,23 +17,29 @@ export default function Home() {
 
     return (
         <main className={styles.main}>
-            <section className={styles.hero}>
-                <h1 className={styles.heroTitle}>Все актуальные проекты!</h1>
-                <p className={styles.heroSub}>Стань частью чего-то большего</p>
+            {/* Навигация (предполагаем, что она у вас в Layout, если нет — добавьте сюда) */}
 
-                {/* Условный рендеринг кнопки */}
-                {isLoggedIn ? (
-                    <Link href="/projects">
-                        <button className={styles.mainBtn}>Проекты</button>
-                    </Link>
-                ) : (
-                    <Link href="/register">
-                        <button className={styles.mainBtn}>Зарегистрироваться</button>
-                    </Link>
-                )}
+            {/* ОБНОВЛЕННАЯ СЕКЦИЯ HERO */}
+            <section className={styles.heroWrapper}>
+                <div className={styles.heroContent}>
+                    <h1 className={styles.heroTitle}>Все актуальные проекты!</h1>
+                    <p className={styles.heroSub}>Стань частью чего-то большего</p>
+
+                    {/* Условный рендеринг кнопки */}
+                    {isLoggedIn ? (
+                        <Link href="/projects">
+                            <button className={styles.mainBtn}>Проекты</button>
+                        </Link>
+                    ) : (
+                        <Link href="/register">
+                            <button className={styles.mainBtn}>Зарегистрироваться</button>
+                        </Link>
+                    )}
+                </div>
+                {/* Фоновое изображение задается через CSS класс .heroWrapper */}
             </section>
 
-            <div className="container">
+            <div className={styles.container}>
                 {/* Бренды компаний */}
                 <div className={styles.brandGrid}>
                     {['KASPI', 'NARXOZ', 'Choco', 'Halyk', 'Freedom', 'Astana M'].map(brand => (
@@ -76,7 +83,7 @@ export default function Home() {
                                 num: "Шаг 6",
                                 title: "Настройте общение",
                                 text: "Договоритесь:\n• где общаетесь (Telegram, WhatsApp)\n• как часто созвоны / встречи\n• как контролируете прогресс"
-                            }
+                            },
                         ].map((step, idx) => (
                             <div key={idx} className={styles.stepCard}>
                                 <h4 className={styles.stepNum}>{step.num}</h4>

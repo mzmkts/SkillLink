@@ -15,6 +15,11 @@ public class ResumeController {
 
     private final ResumeService resumeService;
 
+    @GetMapping
+    public List<ResumeDto> getAll() {
+        return resumeService.getAllResumes();
+    }
+
     @PostMapping("/{userId}")
     public ResumeDto create(@PathVariable Long userId,
                             @RequestBody ResumeDto dto) {

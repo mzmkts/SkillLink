@@ -1,69 +1,251 @@
+/* ==========================================================================
+   КОНТЕЙНЕР СТРАНИЦЫ (GLASSMORPHISM)
+   ========================================================================== */
 .container {
     max-width: 700px;
     margin: 60px auto;
     padding: 40px;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    background: rgba(30, 41, 59, 0.65); /* Плотная подложка в цвет темы */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.3),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1); /* Верхний блик */
 }
 
 .title {
-    color: #5b8e9d;
-    font-size: 28px;
-    margin-bottom: 30px;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 35px;
     text-align: center;
+    letter-spacing: -0.02em;
 }
 
+/* ==========================================================================
+   ПОЛЯ ВВОДА И СТРУКТУРА
+   ========================================================================== */
 .inputGroup {
     margin-bottom: 25px;
 }
 
 .inputGroup label {
     display: block;
-    color: #5b8e9d;
+    color: #94a3b8; /* Спокойный серый */
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-size: 14px;
+    letter-spacing: 0.01em;
 }
 
 .inputGroup input,
 .inputGroup textarea {
     width: 100%;
-    padding: 12px;
-    border: 1.5px solid #d0e0e3;
-    border-radius: 8px;
+    padding: 14px 16px;
+    background: rgba(15, 23, 42, 0.5); /* Темный инпут */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #ffffff;
     outline: none;
     font-family: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.inputGroup input::placeholder,
+.inputGroup textarea::placeholder {
+    color: #64748b;
 }
 
 .inputGroup input:focus,
 .inputGroup textarea:focus {
-    border-color: #5b8e9d;
+    border-color: rgba(59, 130, 246, 0.5);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
 }
 
+/* Поисковой контейнер для навыков */
+.searchWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #ffffff;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+.searchInput:focus {
+    border-color: rgba(59, 130, 246, 0.5);
+    background: rgba(15, 23, 42, 0.8);
+}
+
+/* ==========================================================================
+   ВЫПАДАЮЩИЙ СПИСОК (DROPDOWN)
+   ========================================================================== */
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #1e293b; /* В цвет карточки */
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    animation: slideDown 0.15s ease-out;
+}
+
+/* Тонкий кастомный скроллбар в стиле темной темы */
+.dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.dropdown::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 0 12px 12px 0;
+}
+.dropdown::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+.dropdown::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdownItem {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    text-align: left;
+}
+
+.dropdownItem:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #3b82f6; /* Подсветка синим */
+}
+
+.noResults {
+    padding: 15px;
+    font-size: 14px;
+    color: #64748b;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   ВЫБРАННЫЕ НАВЫКИ (ТЕГИ)
+   ========================================================================== */
+.skillsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chosenTag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.05);
+    animation: fadeIn 0.2s ease-out;
+}
+
+.removeTagBtn {
+    background: none;
+    border: none;
+    color: #3b82f6;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity 0.15s, transform 0.15s;
+}
+
+.removeTagBtn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   КНОПКИ ДЕЙСТВИЯ
+   ========================================================================== */
 .actions {
     display: flex;
     gap: 15px;
-    margin-top: 30px;
+    margin-top: 35px;
 }
 
 .submitBtn {
     flex: 2;
-    background: #8ccbe6;
+    background: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
     color: white;
     border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: bold;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
+    transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submitBtn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
 }
 
 .cancelBtn {
     flex: 1;
-    background: transparent;
-    border: 1.5px solid #d0e0e3;
-    color: #a3b8bc;
-    padding: 12px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.cancelBtn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
 }

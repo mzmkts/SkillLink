@@ -1,10 +1,18 @@
+/* ==========================================================================
+   КОНТЕЙНЕР СТРАНИЦЫ (GLASSMORPHISM)
+   ========================================================================== */
 .container {
     max-width: 750px;
     margin: 50px auto;
     padding: 40px;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+    background: rgba(30, 41, 59, 0.65); /* Плотная темная подложка */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.3),
+            inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
 .header {
@@ -13,97 +21,292 @@
 }
 
 .title {
-    color: #5b8e9d;
-    font-size: 28px;
+    background: linear-gradient(to right, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 32px;
+    font-weight: 700;
     margin-bottom: 8px;
+    letter-spacing: -0.02em;
 }
 
 .authorInfo {
-    color: #a3b8bc;
+    color: #64748b; /* Приглушенный текст автора */
     font-size: 14px;
+    font-weight: 500;
 }
 
+/* ==========================================================================
+   ЭЛЕМЕНТЫ ФОРМЫ И ПОЛЯ ВВОДА
+   ========================================================================== */
 .inputGroup {
     margin-bottom: 20px;
 }
 
 .inputGroup label {
     display: block;
-    margin-bottom: 8px;
-    color: #5b8e9d;
+    margin-bottom: 10px;
+    color: #94a3b8;
     font-weight: 600;
     font-size: 14px;
+    letter-spacing: 0.01em;
 }
 
-.inputGroup input,
-.inputGroup select,
-.inputGroup textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1.5px solid #d0e0e3;
-    border-radius: 8px;
-    background: #fcfdfe;
-    outline: none;
-    font-family: inherit;
-    transition: 0.2s;
-}
-
-.inputGroup input:focus,
-.inputGroup textarea:focus {
-    border-color: #5b8e9d;
-}
-
-.actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 30px;
-}
-
-.submitBtn {
-    flex: 2;
-    background-color: #8ccbe6;
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.submitBtn:hover {
-    background-color: #5b8e9d;
-}
-
-.cancelBtn {
-    flex: 1;
-    background: transparent;
-    border: 1.5px solid #d0e0e3;
-    color: #a3b8bc;
-    padding: 14px;
-    border-radius: 8px;
-    cursor: pointer;
-}
+/* Строка с лейблом и счетчиком символов */
 .labelRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .charCount {
     font-size: 12px;
-    color: #a3b8bc;
+    color: #64748b;
     font-weight: 500;
 }
 
 .limitReached {
-    color: #ff4d4f; /* Красный цвет при достижении лимита */
-    font-weight: bold;
+    color: #ef4444; /* Яркий неоновый красный при лимите */
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
 }
 
-/* На всякий случай обновляем стили textarea для удобства ввода большого текста */
+/* Базовые стили для инпутов, селектов и текстовых зон */
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(15, 23, 42, 0.5); /* Темный полупрозрачный фон */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #ffffff;
+    outline: none;
+    font-family: inherit;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+/* Кастомизация выпадающего списка статуса (native select) */
+.inputGroup select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+/* Стили для option внутри селекта, чтобы они не сливались */
+.inputGroup select option {
+    background-color: #1e293b;
+    color: #ffffff;
+}
+
+.inputGroup input::placeholder,
+.inputGroup textarea::placeholder {
+    color: #64748b;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus,
+.inputGroup textarea:focus {
+    border-color: rgba(59, 130, 246, 0.5);
+    background: rgba(15, 23, 42, 0.8);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+}
+
 .inputGroup textarea {
     resize: vertical;
     min-height: 200px;
+}
+
+.loadingText {
+    font-size: 14px;
+    color: #64748b;
+    font-style: italic;
+    padding: 5px 0;
+}
+
+/* ==========================================================================
+   ПОИСК И ВЫПАДАЮЩИЙ СПИСОК ТЕХНОЛОГИЙ
+   ========================================================================== */
+.searchWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #ffffff;
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+.searchInput:focus {
+    border-color: rgba(59, 130, 246, 0.5);
+    background: rgba(15, 23, 42, 0.8);
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    max-height: 210px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    animation: slideDown 0.15s ease-out;
+}
+
+/* Кастомный тонкий скроллбар */
+.dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+.dropdown::-webkit-scrollbar-track {
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 0 12px 12px 0;
+}
+.dropdown::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+.dropdown::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdownItem {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #e2e8f0;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    text-align: left;
+}
+
+.dropdownItem:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.noResults {
+    padding: 15px;
+    font-size: 14px;
+    color: #64748b;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   ВЫБРАННЫЕ НАВЫКИ (ТЕГИ / BADGES)
+   ========================================================================== */
+.skillsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.chosenTag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    color: #3b82f6;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.05);
+    animation: fadeIn 0.2s ease-out;
+}
+
+.removeTagBtn {
+    background: none;
+    border: none;
+    color: #3b82f6;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    transition: opacity 0.15s, transform 0.15s;
+}
+
+.removeTagBtn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* ==========================================================================
+   КНОПКИ ДЕЙСТВИЯ
+   ========================================================================== */
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.submitBtn {
+    flex: 2;
+    background: linear-gradient(135deg, #3b82f6 0%, #4f46e5 100%);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submitBtn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+.cancelBtn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.cancelBtn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
 }

@@ -4,6 +4,7 @@ import com.Narxoz.SkillLink.Dto.ProjectDto;
 import com.Narxoz.SkillLink.Model.User;
 import com.Narxoz.SkillLink.Service.ProjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,5 +42,11 @@ public class ProjectController {
     @DeleteMapping("/{id}")
     public void deleteProject(@PathVariable Long id) {
         projectService.deleteProject(id);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ProjectDto>> getProjectsByUser(@PathVariable Long userId) {
+        List<ProjectDto> projects = projectService.getProjectsByUserId(userId);
+        return ResponseEntity.ok(projects);
     }
 }

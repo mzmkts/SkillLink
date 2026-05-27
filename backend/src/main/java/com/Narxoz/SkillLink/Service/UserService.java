@@ -3,6 +3,7 @@ package com.Narxoz.SkillLink.Service;
 
 import com.Narxoz.SkillLink.Dto.UserDto;
 import com.Narxoz.SkillLink.Model.User;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 

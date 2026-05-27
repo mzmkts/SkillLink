@@ -1,16 +1,28 @@
+@import url('https://googleapis.com');
+
 html, body {
     padding: 0;
     margin: 0;
-    font-family: 'Inter', -apple-system, sans-serif; /* Похоже на шрифт в макете */
-    background-color: #FFFFFF;
-    color: #333;
+    font-family: 'Roboto', sans-serif;
+    background-color: #0f172a;
+}
+:root {
+    --primary-color: #3b82f6;
+    --primary-hover: #2563eb;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --bg-gradient: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-md: 0 10px 15px -3px rgba(148, 163, 184, 0.12), 0 4px 6px -4px rgba(148, 163, 184, 0.12);
+    --radius: 16px;
 }
 
 /* Глобальный контейнер для центрирования */
 .container {
     width: 100%;
     max-width: 1200px; /* Максимальная ширина как в дизайне */
-    margin: 0 auto;    /* Центрирует блок по горизонтали */
+    margin: 0 auto;
     box-sizing: border-box;
 }
 a {
@@ -18,7 +30,6 @@ a {
     text-decoration: none;
 }
 
-/* Плавный переход для всех кнопок */
 button {
     transition: opacity 0.2s ease, transform 0.1s ease;
 }

@@ -1,347 +1,507 @@
-/* затемнение фона */
-.modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: 60px;
-    z-index: 1000;
-}
-
-/* сама модалка */
-.filterModal {
-    background: #f6f7f7;
-    border-radius: 16px;
-    width: 800px;
-    padding: 28px 32px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-/* header */
-.modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
-.modalTitle {
-    font-size: 28px;
-    font-weight: 600;
-    color: #4f7c7b;
-}
-
-.closeBtn {
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-    color: #9aa6a6;
-}
-
-/* контент */
-.filterContent {
-    display: flex;
-    gap: 80px;
-    margin-bottom: 32px;
-}
-
-.filterColumn h3 {
-    font-size: 18px;
-    margin-bottom: 16px;
-    color: #4f7c7b;
-}
-
-/* чекбоксы */
-.checkboxContainer {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-    cursor: pointer;
-    font-size: 15px;
-    color: #4a6c6b;
-    position: relative;
-}
-
-/* скрываем дефолтный checkbox */
-.checkboxContainer input {
-    display: none;
-}
-
-/* кастомный чекбокс */
-.checkmark {
-    width: 18px;
-    height: 18px;
-    border: 2px solid #c7d3d3;
-    border-radius: 4px;
-    display: inline-block;
-    position: relative;
-    transition: 0.2s;
-}
-
-/* checked состояние */
-.checkboxContainer input:checked + .checkmark {
-    background-color: #6fa8a6;
-    border-color: #6fa8a6;
-}
-
-/* галочка */
-.checkboxContainer input:checked + .checkmark::after {
-    content: "✓";
-    position: absolute;
-    font-size: 12px;
-    color: white;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -55%);
-}
-
-/* footer */
-.modalFooter {
-    display: flex;
-    justify-content: space-between;
-}
-
-/* кнопки */
-.applyBtn {
-    padding: 14px 32px;
-    border-radius: 10px;
-    border: 2px solid #6fa8a6;
-    background: transparent;
-    color: #4f7c7b;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.applyBtn:hover {
-    background: #6fa8a6;
-    color: white;
-}
-
-.clearBtn {
-    padding: 14px 32px;
-    border-radius: 10px;
-    border: 2px solid #d9e1e1;
-    background: transparent;
-    color: #b5bfbf;
-    font-size: 16px;
-    cursor: pointer;
-}
+/* ==========================================================================
+   ОСНОВНОЙ КОНТЕЙНЕР И ЗАГОЛОВКИ
+   ========================================================================== */
 .mainContainer {
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-
-.hero {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.hero h1 {
-    font-size: 32px;
-    color: #4a7d8c;
-    margin-bottom: 10px;
-}
-
-.heroBtn {
-    display: inline-block;
-    background-color: #8ccbe6;
-    color: white;
-    padding: 10px 25px;
-    border-radius: 8px;
-    text-decoration: none;
-    margin-top: 20px;
-}
-
-.searchBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-}
-
-.searchBar input {
-    border: none;
-    background: transparent;
-    width: 60%;
-    outline: none;
-}
-
-.projectsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-    gap: 30px;
-}
-
-.projectCard {
-    background: white;
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.2s;
-}
-
-.projectCard:hover {
-    transform: translateY(-5px);
-}
-
-.projectTitle {
-    color: #2d6a7a;
-    font-size: 22px;
-    margin-bottom: 8px;
-}
-
-.category {
-    color: #a0c4cf;
-    font-size: 14px;
-    display: block;
-    margin-bottom: 15px;
-}
-
-.description {
-    color: #666;
-    margin-bottom: 20px;
-    line-height: 1.5;
-}
-
-.metaInfo {
-    font-size: 12px;
-    color: #999;
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.cardActions {
-    display: flex;
-    gap: 15px;
-}
-
-.applyBtn {
-    background: #8ccbe6;
-    color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.membersBtn {
-    background: #e3f2fd;
-    color: #1976d2;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.howToSection {
-    margin-top: 100px;
-    margin-bottom: 80px;
-    text-align: center;
+    margin: 40px auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+    animation: fadeInProjects 0.4s ease-out;
 }
 
 .sectionTitle {
-    font-size: 28px;
-    color: #6da9be;
-    font-weight: 400;
-    margin-bottom: 50px;
-}
-
-.stepsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 колонки */
-    gap: 30px;
-}
-
-.stepCard {
-    background: #fff;
-    padding: 35px;
-    border-radius: 12px;
-    text-align: left;
-    /* Очень мягкая тень как на макете */
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
-    min-height: 220px;
-    display: flex;
-    flex-direction: column;
-}
-
-.stepNum {
-    color: #6da9be;
-    font-size: 18px;
-    margin: 0 0 10px 0;
-    font-weight: 600;
-}
-
-.stepSubTitle {
+    font-size: 22px;
     font-weight: 700;
-    font-size: 14px;
-    color: #6da9be;
-    margin-bottom: 15px;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    letter-spacing: -0.01em;
 }
 
-.stepText {
-    font-size: 13px;
-    color: #6da9be;
-    line-height: 1.6;
-    white-space: pre-line;
-    margin: 0;
-}
-.wrapper {
-    background-color: #f8fafb;
-    min-height: 100vh;
-    padding: 40px 10%;
-    font-family: 'Inter', sans-serif;
-}
-
-/* Контейнер поиска */
+/* ==========================================================================
+   ИДЕНТИЧНАЯ ПАНЕЛЬ ПОИСКА (РАЗМЕРЫ ОДИН В ОДИН КАК В РЕЗЮМЕ)
+   ========================================================================== */
 .searchContainer {
     display: flex;
-    gap: 15px;
-    background: white;
-    padding: 15px;
-    border: 1.5px solid #d0e0e3;
-    border-radius: 8px;
-    margin-bottom: 40px;
+    gap: 16px;
+    margin-bottom: 32px;
+    width: 100%;
 }
 
 .searchBox {
     flex: 1;
+    position: relative;
     display: flex;
     align-items: center;
-    background: #f1f5f6;
-    border-radius: 6px;
-    padding: 8px 15px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 18px;
+    color: #64748b;
+    font-size: 16px;
+    pointer-events: none;
+    z-index: 5; /* Жесткая фиксация лупы */
 }
 
 .searchBox input {
-    background: transparent;
-    border: none;
-    outline: none;
     width: 100%;
-    color: #7a9a9f;
-    padding-left: 10px;
+    padding: 14px 16px 14px 48px;
+    background: rgba(30, 41, 59, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    color: #ffffff;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.searchBox input::placeholder {
+    color: #64748b;
+}
+
+.searchBox input:focus {
+    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(30, 41, 59, 0.6);
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
 }
 
 .filterButton {
-    background: white;
-    border: 1.5px solid #d0e0e3;
-    border-radius: 6px;
-    color: #7a9a9f;
-    padding: 0 25px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
+    background: rgba(30, 41, 59, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    padding: 0 24px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.filterButton:hover {
+    background: rgba(56, 189, 248, 0.1);
+    border-color: rgba(56, 189, 248, 0.3);
+    color: #38bdf8;
+}
+
+/* ==========================================================================
+   БЛОК РЕКОМЕНДАЦИЙ ПО СТЭКУ
+   ========================================================================== */
+.recommendationsSection {
+    background: rgba(56, 189, 248, 0.03);
+    border: 1px dashed rgba(56, 189, 248, 0.25);
+    border-radius: 24px;
+    padding: 24px;
+    margin-bottom: 40px;
+    box-shadow: inset 0 0 30px rgba(56, 189, 248, 0.02);
+}
+
+.projectCard.recommendedCard {
+    background: rgba(30, 41, 59, 0.65);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.projectCard.recommendedCard:hover {
+    border-color: #38bdf8;
+    box-shadow: 0 15px 35px rgba(56, 189, 248, 0.15);
+}
+
+/* ==========================================================================
+   СЕТКА ПРОЕКТОВ И КАРТОЧКИ
+   ========================================================================== */
+.projectsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+}
+
+.projectCard {
+    background: rgba(30, 41, 59, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.25s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.projectCard:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.cardContent {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.projectTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 14px 0;
+    letter-spacing: -0.01em;
+}
+
+.metaInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.metaInfo p {
+    margin: 0;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.metaInfo strong {
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+/* Теги технологий */
+.projectSkillsTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 20px;
+}
+
+.miniSkillTag {
+    font-size: 11px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+.recommendedCard .miniSkillTag {
+    background: rgba(56, 189, 248, 0.06);
+    border-color: rgba(56, 189, 248, 0.15);
+    color: #7dd3fc;
+}
+
+/* Кнопки действий */
+.cardActions {
+    display: flex;
+    gap: 10px;
+}
+
+.applyBtn {
+    flex: 1;
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.applyBtn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+}
+
+.membersBtn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.membersBtn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   МОДАЛЬНОЕ ОКНО ФИЛЬТРОВ (РАЗМЕРЫ СИНХРОНИЗИРОВАНЫ С РЕЗЮМЕ — 520px)
+   ========================================================================== */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(10, 15, 30, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.filterModal {
+    width: 100%;
+    max-width: 520px; /* Было 440px, стало просторнее как на странице резюме */
+    background: rgba(22, 32, 54, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.modalTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.closeBtn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 18px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.closeBtn:hover { color: #ffffff; }
+
+.filterContent {
+    padding: 24px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filterColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filterColumn h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.modalSearchInput {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.skillsScrollList {
+    max-height: 150px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 4px;
+}
+
+.skillsScrollList::-webkit-scrollbar {
+    width: 4px;
+}
+
+.skillsScrollList::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+/* Кастомные чекбоксы */
+.checkboxContainer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #e2e8f0;
+    user-select: none;
+    line-height: 20px;
+}
+
+.checkboxContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.checkboxContainer input:checked ~ .checkmark {
+    background-color: #38bdf8;
+    border-color: #38bdf8;
+}
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid #0f172a;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.checkboxContainer input:checked ~ .checkmark::after { display: block; }
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 20px 30px;
+    background: rgba(15, 23, 42, 0.4);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.clearBtn {
+    padding: 11px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    transition: all 0.2s ease;
+}
+
+.clearBtn:hover { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
+
+/* ==========================================================================
+   СЕКЦИЯ: КАК ОБЪЕДИНИТЬСЯ В КОМАНДУ
+   ========================================================================== */
+.howToSection {
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.stepsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+}
+
+.stepCard {
+    background: rgba(30, 41, 59, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 24px;
+    transition: border-color 0.2s ease;
+}
+
+.stepCard:hover {
+    border-color: rgba(56, 189, 248, 0.2);
+}
+
+.stepNum {
+    font-size: 12px;
+    font-weight: 700;
+    color: #38bdf8;
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+    letter-spacing: 0.05em;
+}
+
+.stepSubTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 12px 0;
+}
+
+.stepText {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+    white-space: pre-line;
+}
+
+.loader, .error, .helpText {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin: 60px auto;
+    color: #64748b;
+    font-size: 15px;
+}
+
+@keyframes fadeInProjects {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .searchContainer { flex-direction: column; }
+    .filterButton { padding: 14px; justify-content: center; }
 }
