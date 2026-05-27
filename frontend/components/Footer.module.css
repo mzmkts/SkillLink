@@ -1,45 +1,55 @@
 .footer {
     width: 100%;
-    background-color: #ffffff;
-    padding: 40px 0 60px; /* Больше отступа снизу, как в оригинале */
-    border-top: 1px solid #f2f2f2; /* Тонкая линия сверху */
+    background: #0f172a; /* Глубокий темный тон в тон со всем сайтом */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px 0;
+    margin-top: auto; /* Прижимает футер к низу страницы */
+    box-sizing: border-box;
 }
 
 .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column; /* Жестко выстраиваем элементы в колонку на любых экранах */
+    align-items: center;    /* Центрируем блоки по горизонтали */
+    justify-content: center;
+    gap: 16px;              /* Расстояние между текстом копирайта и ссылками */
+    text-align: center;     /* Центрируем сам текст внутри блоков */
+    box-sizing: border-box;
+}
+
+/* 🔥 МЕДИА-ЗАПРОС ИЗМЕНЕН, ЧТОБЫ СОХРАНЯТЬ ЦЕНТРИРОВАНИЕ И СТРУКТУРУ КОЛОНКИ */
+@media (min-width: 768px) {
+    .content {
+        flex-direction: column;  /* Никаких строк, оставляем колонку на десктопе */
+        justify-content: center; /* Центрируем по главной оси */
+        text-align: center;      /* Текст остается по центру */
+    }
 }
 
 .copyright {
-    color: #999;
-    font-size: 14px;
+    font-size: 0.9rem;
+    color: #64748b;
     margin: 0;
+    letter-spacing: -0.01em;
 }
 
 .links {
     display: flex;
-    justify-content: center;
-    gap: 40px; /* Широкие отступы между ссылками */
+    flex-wrap: wrap;        /* Защита: если ссылки не влезут в экран, они перенесутся ниже */
+    justify-content: center;/* Центрируем ряд ссылок */
+    gap: 24px;              /* Расстояние МЕЖДУ ссылками, чтобы они не слипались */
 }
 
 .link {
-    color: #a0aeb1; /* Нежно-серый цвет */
+    font-size: 0.9rem;
+    color: #94a3b8;
     text-decoration: none;
-    font-size: 13px;
     transition: color 0.2s ease;
 }
 
 .link:hover {
-    color: #6da9be; /* Цвет при наведении */
-}
-
-/* Адаптивность для мобилок */
-@media (max-width: 768px) {
-    .links {
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-    }
+    color: #3b82f6; /* Мягкое подсвечивание ссылки при наведении */
 }

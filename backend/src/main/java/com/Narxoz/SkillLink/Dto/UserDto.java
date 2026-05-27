@@ -19,7 +19,8 @@ public class UserDto {
     private String passwordDto;
     private String emailDto;
     private String school;
-    private List<String> skills;
+    private List<SkillDto> skills;
     private List<Role> roles;
     private String avatarUrl;
+    private String about;
 }

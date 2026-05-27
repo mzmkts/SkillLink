@@ -1,0 +1,344 @@
+/* ==========================================================================
+   ГЛАВНЫЙ КОНТЕЙНЕР (LAYOUT)
+   ========================================================================== */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 24px;
+    box-sizing: border-box;
+    animation: fadeInResume 0.4s ease-out;
+}
+
+.resumeCard {
+    background: rgba(30, 41, 59, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* Навигация и верхний блок управления */
+.topActions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.backBtn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.backBtn:hover {
+    color: #38bdf8;
+    transform: translateX(-4px);
+}
+
+.managementButtons {
+    display: flex;
+    gap: 12px;
+}
+
+.editBtn, .deleteBtn {
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.editBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+}
+
+.editBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.deleteBtn {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+.deleteBtn:hover:not(:disabled) {
+    background: #ef4444;
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+}
+
+/* ==========================================================================
+   ШАПКА РЕЗЮМЕ (HEADER)
+   ========================================================================== */
+.header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.author {
+    font-size: 15px;
+    color: #64748b;
+    margin: 0;
+}
+
+.author span {
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   СЕКЦИИ И ОТОБРАЖЕНИЕ НАВЫКОВ
+   ========================================================================== */
+.skillsSection, .contentSection {
+    margin-bottom: 32px;
+}
+
+.sectionLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 16px 0;
+}
+
+/* Список навыков в режиме чтения */
+.skillsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skillTagView {
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.15);
+    color: #7dd3fc;
+    padding: 6px 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Контентная часть */
+.bodyText {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #cbd5e1;
+    white-space: pre-line;
+}
+
+/* ==========================================================================
+   ИНТЕРФЕЙС РЕДАКТИРОВАНИЯ (EDIT MODE)
+   ========================================================================== */
+.editInputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.inputLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.editInput, .editTextarea {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    color: #ffffff;
+    font-family: inherit;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+.editInput {
+    padding: 14px 16px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.editTextarea {
+    padding: 16px;
+    font-size: 15px;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.editInput:focus, .editTextarea:focus {
+    border-color: rgba(56, 189, 248, 0.5);
+    background: rgba(15, 23, 42, 0.7);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+}
+
+/* Сетка выбора навыков в редакторе */
+.skillsSelectorContainer {
+    background: rgba(15, 23, 42, 0.3);
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.selectorHelpText {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0 0 14px 0;
+}
+
+.skillsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Интерактивные кнопки выбора скиллов */
+.skillChoiceBtn {
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.skillChoiceBtn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #e2e8f0;
+}
+
+/* Состояние, когда скилл выбран */
+.skillChoiceBtn.skillSelected {
+    background: rgba(56, 189, 248, 0.15);
+    border-color: #38bdf8;
+    color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+}
+
+/* Нижний блок действий в редакторе */
+.editActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 24px;
+    margin-top: 12px;
+}
+
+.saveBtn, .cancelBtn {
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.saveBtn {
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.saveBtn:hover:not(:disabled) {
+    filter: brightness(1.1);
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+}
+
+.cancelBtn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+}
+
+.cancelBtn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   СЕРВИСНЫЕ КЛАССЫ И АНИМАЦИИ
+   ========================================================================== */
+.loader, .errorContainer {
+    text-align: center;
+    margin: 140px auto;
+    font-size: 16px;
+    color: #94a3b8;
+}
+
+.errorContainer {
+    color: #ef4444;
+}
+
+.helpText {
+    font-size: 14px;
+    color: #64748b;
+    font-style: italic;
+}
+
+@keyframes fadeInResume {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Адаптивный дизайн под мобильные телефоны */
+@media (max-width: 600px) {
+    .resumeCard {
+        padding: 24px;
+    }
+    .topActions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .managementButtons {
+        width: 100%;
+    }
+    .editBtn, .deleteBtn {
+        flex: 1;
+        text-align: center;
+    }
+    .title {
+        font-size: 24px;
+    }
+    .editActions {
+        flex-direction: column;
+    }
+    .saveBtn, .cancelBtn {
+        width: 100%;
+    }
+}

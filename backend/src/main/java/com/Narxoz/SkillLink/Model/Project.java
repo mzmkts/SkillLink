@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -28,5 +30,17 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Column(nullable = true)
+    @JoinTable(
+            name = "t_project_skills",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id")
+    )
+    private List<Skill> skills;
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectApplication> applications;
 }
 

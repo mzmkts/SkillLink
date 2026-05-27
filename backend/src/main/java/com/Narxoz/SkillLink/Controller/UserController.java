@@ -7,9 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final UserService userService;
 
@@ -29,7 +32,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody UserDto userDto){
         userService.updateUser(id, userDto);
-        return new  ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -37,6 +40,7 @@ public class UserController {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PatchMapping("/{id}/avatar")
     public void updateAvatar(@PathVariable Long id, @RequestBody String avatarUrl) {
         userService.updateAvatar(id, avatarUrl);

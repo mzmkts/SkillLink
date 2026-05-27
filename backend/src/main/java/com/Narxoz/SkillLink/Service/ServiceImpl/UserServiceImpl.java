@@ -1,17 +1,14 @@
 package com.Narxoz.SkillLink.Service.ServiceImpl;
 
-import com.Narxoz.SkillLink.Config.ProjectSpecification;
 import com.Narxoz.SkillLink.Config.UserSpecification;
 import com.Narxoz.SkillLink.Dto.UserDto;
 import com.Narxoz.SkillLink.Mapper.UserMapper;
-import com.Narxoz.SkillLink.Model.Project;
 import com.Narxoz.SkillLink.Model.Role;
-import com.Narxoz.SkillLink.Model.Skill;
 import com.Narxoz.SkillLink.Model.User;
 import com.Narxoz.SkillLink.Repo.RoleRepo;
-import com.Narxoz.SkillLink.Repo.SkillRepo;
 import com.Narxoz.SkillLink.Repo.UserRepo;
 import com.Narxoz.SkillLink.Service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,7 +27,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserMapper userMapper;
     private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
-    private final SkillRepo skillRepo;
 
     @Override
     public List<UserDto> getAll(String name, String surname, String school, String skill) {
@@ -60,19 +56,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setEmail(userDto.getEmailDto());
             user.setPassword(encodedPassword);
             user.setSchool(userDto.getSchool());
-            List<Skill> skills = new java.util.ArrayList<>();
-            if (userDto.getSkills() != null && !userDto.getSkills().isEmpty()) {
-                skills = userDto.getSkills().stream()
-                        .map(name -> skillRepo.findByName(name)
-                                .orElseGet(() -> {
-                                    Skill s = new Skill();
-                                    s.setName(name);
-                                    return skillRepo.save(s);
-                                }))
-                        .toList();
-            }
-            user.setSkills(skills);
             user.setRoles(roles);
+            user.setAbout(userDto.getAbout());
+
             userRepo.save(user);
         } else {
             throw new RuntimeException("Пользователь с таким email уже существует");
@@ -80,27 +66,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void updateUser(Long id, UserDto userDto) {
-        User existingUser = userRepo.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        User existingUser = userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+
         existingUser.setFirstName(userDto.getFirstNameDto());
         existingUser.setLastName(userDto.getLastNameDto());
-        existingUser.setEmail(userDto.getEmailDto());
-        existingUser.setPassword(passwordEncoder.encode(userDto.getPasswordDto()));
-        existingUser.setRoles(userDto.getRoles());
         existingUser.setSchool(userDto.getSchool());
-        List<Skill> skills = new java.util.ArrayList<>();
-        if (userDto.getSkills() != null && !userDto.getSkills().isEmpty()) {
-            skills = userDto.getSkills().stream()
-                    .map(name -> skillRepo.findByName(name)
-                            .orElseGet(() -> {
-                                Skill s = new Skill();
-                                s.setName(name);
-                                return skillRepo.save(s);
-                            }))
-                    .toList();
+        existingUser.setAbout(userDto.getAbout());
+
+        if (userDto.getEmailDto() != null) {
+            existingUser.setEmail(userDto.getEmailDto());
         }
 
-        existingUser.setSkills(skills);
         userRepo.save(existingUser);
     }
 
@@ -113,17 +92,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDto login(String email, String password) {
         User user = userRepo.getByEmail(email);
 
-        // 1. Проверяем, существует ли пользователь
         if (user == null) {
             throw new RuntimeException("Пользователь с email " + email + " не найден");
         }
 
-        // 2. Проверяем пароль (сравниваем чистый пароль из формы с зашифрованным в БД)
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Неверный пароль");
         }
 
-        // 3. Возвращаем UserDto с помощью твоего маппера
         return userMapper.toDto(user);
     }
 
@@ -135,6 +111,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         throw new UsernameNotFoundException("User not found with email: " + email);
     }
+
     @Override
     public void updateAvatar(Long id, String avatarUrl) {
         User user = userRepo.findById(id)

@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class ProjectDto {
     private String status;
     private Long ownerId;
     private String ownerName;
+    private List<SkillDto> skills;
 }

@@ -25,6 +25,9 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
 
+    @Column(length = 1000)
+    private String about;
+
     @Column(nullable = false)
     private String password;
 
@@ -34,20 +37,12 @@ public class User implements UserDetails {
     @Column(nullable = true)
     private String school;
 
-    @ManyToMany
-    @Column(nullable = true)
-    @JoinTable(
-            name = "user_skills",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
-    private List<Skill> skills;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Resume resume;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Resume> resumes;
 
     @Column(name = "avatar_url", columnDefinition = "TEXT")
     private String avatarUrl;
